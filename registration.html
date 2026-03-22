@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1f5039">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>患者注册 | 安鑫诊所</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="node_modules/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo"><span class="logo-icon">&#x2695;</span> 安鑫诊所</a>
+        <button type="button" class="menu-btn" aria-label="菜单"><span class="menu-btn-bar"></span><span class="menu-btn-bar"></span><span class="menu-btn-bar"></span></button>
+        <nav class="nav">
+          <a href="/" class="nav-link">首页</a>
+          <a href="registration.html" class="nav-link active">患者注册</a>
+          <a href="login.html" class="nav-link">登录</a>
+          <a href="appointment.html" class="nav-link nav-cta">预约挂号</a>
+          <a href="my-records.html" class="nav-link">我的病历</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <a href="/" class="page-back">&larr; 返回首页</a>
+        <h1>患者注册</h1>
+        <p>请填写您的个人信息与健康状况，完成注册后可预约就诊</p>
+      </div>
+
+      <div class="form-container">
+        <div class="form-card">
+          <form id="registration-form" novalidate>
+            <fieldset class="form-section-card">
+              <legend>基本信息</legend>
+              <div class="form-row">
+                <div class="form-group"><label for="reg-name">姓名 <span class="required">*</span></label><input type="text" id="reg-name" placeholder="请输入真实姓名" required></div>
+                <div class="form-group"><label for="reg-age">年龄 <span class="required">*</span></label><input type="number" id="reg-age" placeholder="岁" min="1" max="150" required></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label for="reg-gender">性别 <span class="required">*</span></label>
+                  <select id="reg-gender" required><option value="">请选择</option><option value="男">男</option><option value="女">女</option><option value="其他">其他</option></select>
+                </div>
+                <div class="form-group"><label for="reg-phone">手机号 <span class="required">*</span></label><input type="tel" id="reg-phone" placeholder="11位手机号" required></div>
+              </div>
+              <div class="form-group"><label for="reg-password">密码 <span class="required">*</span></label><input type="password" id="reg-password" placeholder="至少6位，用于登录" required><p class="form-hint">密码至少6位</p></div>
+              <div class="form-row">
+                <div class="form-group"><label for="reg-birth-date">出生日期</label><input type="text" id="reg-birth-date" placeholder="年-月-日" readonly></div>
+                <div class="form-group"><label for="reg-id-number">身份证号</label><input type="text" id="reg-id-number" placeholder="选填"></div>
+              </div>
+              </fieldset>
+
+            <fieldset class="form-section-card">
+              <legend>健康状况</legend>
+              <div class="form-group"><label for="reg-symptoms">症状/主诉 <span class="required">*</span></label><textarea id="reg-symptoms" rows="3" placeholder="请描述您当前的主要症状或就诊原因"></textarea></div>
+              <div class="form-group"><label for="reg-medical-history">既往病史</label><textarea id="reg-medical-history" rows="2" placeholder="如：高血压、糖尿病等"></textarea></div>
+              <div class="form-group"><label for="reg-allergy-history">过敏史</label><textarea id="reg-allergy-history" rows="2" placeholder="如：青霉素过敏等"></textarea></div>
+              <div class="form-group"><label>有无保险 <span class="required">*</span></label>
+                <div class="insurance-options">
+                  <label class="radio-option"><input type="radio" name="has_insurance" value="有" required><span>有</span></label>
+                  <label class="radio-option"><input type="radio" name="has_insurance" value="无"><span>无</span></label>
+                </div>
+              </div>
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary btn-lg" id="reg-submit-btn" style="width:100%">提交注册</button>
+          </form>
+          <p id="reg-message" class="form-message" hidden></p>
+          <p class="form-footer-note">已有账号？<a href="login.html">立即登录 &rarr;</a></p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner"><div class="footer-bottom"><p>&copy; 2026 安鑫诊所</p></div></div>
+    </footer>
+  </div>
+
+  <script src="node_modules/flatpickr/dist/flatpickr.min.js"></script>
+  <script src="node_modules/flatpickr/dist/l10n/zh.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/registration.js"></script>
+</body>
+</html>

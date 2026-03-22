@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1f5039">
+  <title>安鑫诊所 · 扫码访问</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .qrcode-page { min-height:80vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center; }
+    .qrcode-card { background:#fff; border:1px solid var(--slate-200); border-radius:var(--radius); padding:2rem; box-shadow:var(--shadow-lg); max-width:400px; width:100%; }
+    .qrcode-card h1 { margin:0 0 0.5rem; font-size:1.25rem; color:var(--primary-800); }
+    .qrcode-card p { margin:0 0 1.5rem; color:var(--slate-500); font-size:0.9rem; }
+    #qrcode-canvas { display:block; margin:0 auto 1rem; background:#fff; padding:12px; border-radius:8px; }
+    .qrcode-url { font-size:0.85rem; color:var(--slate-600); word-break:break-all; margin-bottom:1rem; }
+    .qrcode-instructions { text-align:left; font-size:0.88rem; color:var(--slate-600); background:var(--slate-50); padding:1rem; border-radius:8px; margin-top:1rem; }
+    .qrcode-instructions h3 { margin:0 0 0.5rem; font-size:0.9rem; color:var(--primary-700); }
+    .qrcode-instructions ul { margin:0; padding-left:1.2rem; line-height:1.7; }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo"><span class="logo-icon">&#x2695;</span> 安鑫诊所</a>
+        <nav class="nav">
+          <a href="/" class="nav-link">首页</a>
+          <a href="registration.html" class="nav-link">患者注册</a>
+          <a href="login.html" class="nav-link">登录</a>
+          <a href="appointment.html" class="nav-link nav-cta">预约挂号</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="qrcode-page">
+      <div class="qrcode-card">
+        <h1>&#x2695; 安鑫诊所</h1>
+        <p>扫码访问网站 · 微信内也可打开</p>
+        <canvas id="qrcode-canvas"></canvas>
+        <p class="qrcode-url" id="qrcode-url-display"></p>
+        <button type="button" id="download-qr-btn" class="btn btn-primary">下载二维码图片</button>
+        <div class="qrcode-instructions">
+          <h3>使用说明</h3>
+          <ul>
+            <li><strong>微信扫码</strong>：用微信扫一扫，可在微信内直接打开网站，进行注册、预约等操作</li>
+            <li><strong>其他应用</strong>：支付宝、系统相机等扫码也可打开</li>
+            <li>建议将二维码打印后张贴于诊所入口，方便患者扫码访问</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner"><div class="footer-bottom"><p>&copy; 2026 安鑫诊所</p></div></div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script>
+    (function () {
+      var API_BASE = window.location.protocol === 'file:' ? 'http://localhost:3000' : '';
+      var canvas = document.getElementById('qrcode-canvas');
+      var urlDisplay = document.getElementById('qrcode-url-display');
+      var downloadBtn = document.getElementById('download-qr-btn');
+      var siteUrl = '';
+
+      function getSiteUrl() {
+        return fetch((API_BASE || '') + '/api/site-url')
+          .then(function (r) { return r.json(); })
+          .then(function (d) { return d && d.url ? d.url : window.location.origin; })
+          .catch(function () { return window.location.origin; });
+      }
+
+      function renderQR(url) {
+        siteUrl = url;
+        if (typeof QRCode === 'undefined') {
+          urlDisplay.textContent = url;
+          return;
+        }
+        QRCode.toCanvas(canvas, url, { width: 260, margin: 2 }, function (err) {
+          if (err) {
+            urlDisplay.textContent = '生成失败: ' + url;
+          } else {
+            urlDisplay.textContent = url;
+          }
+        });
+      }
+
+      function downloadQR() {
+        var url = siteUrl || urlDisplay.textContent;
+        if (!url || url.indexOf('生成失败') === 0) return;
+        if (typeof QRCode === 'undefined') {
+          alert('请稍后重试');
+          return;
+        }
+        QRCode.toDataURL(url, { width: 512, margin: 2 }, function (err, dataUrl) {
+          if (err) { alert('下载失败'); return; }
+          var a = document.createElement('a');
+          a.href = dataUrl;
+          a.download = 'anxin-clinic-qrcode.png';
+          a.click();
+        });
+      }
+
+      getSiteUrl().then(renderQR);
+
+      if (downloadBtn) downloadBtn.addEventListener('click', downloadQR);
+    })();
+  </script>
+</body>
+</html>

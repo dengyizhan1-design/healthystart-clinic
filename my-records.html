@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1f5039">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>我的病历与用药记录 | 安鑫诊所</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .records-page-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .record-block { margin-bottom: 1.5rem; }
+    .record-block h3 { font-size: 0.9rem; color: var(--slate-500); margin: 0 0 0.5rem; font-weight: 600; }
+    .record-block .value { font-size: 1rem; color: var(--slate-800); }
+    .rx-list { width: 100%; border-collapse: collapse; margin-top: 0.75rem; font-size: 0.9rem; }
+    .rx-list th { text-align: left; padding: 0.5rem 0.75rem; background: var(--primary-50); color: var(--primary-800); font-weight: 600; }
+    .rx-list td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--slate-100); }
+    .rx-list tr:last-child td { border-bottom: none; }
+    .empty-records { text-align: center; padding: 3rem 1.5rem; color: var(--slate-500); }
+    .empty-records p { margin: 0 0 1rem; }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo"><span class="logo-icon">&#x2695;</span> 安鑫诊所</a>
+        <button type="button" class="menu-btn" aria-label="菜单"><span class="menu-btn-bar"></span><span class="menu-btn-bar"></span><span class="menu-btn-bar"></span></button>
+        <nav class="nav">
+          <a href="/" class="nav-link">首页</a>
+          <a href="registration.html" class="nav-link">患者注册</a>
+          <a href="login.html" class="nav-link">登录</a>
+          <a href="appointment.html" class="nav-link nav-cta-outline">预约挂号</a>
+          <a href="my-records.html" class="nav-link active">我的病历</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <div class="records-page-header">
+          <div>
+            <a href="/" class="page-back">&larr; 返回首页</a>
+            <h1>我的病历与用药记录</h1>
+            <p>查看您的就诊记录、诊断及处方用药（用法、用量）</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="auth-required" class="form-container" style="text-align:center;padding:2.5rem">
+        <div class="form-card" style="max-width:400px;margin:0 auto">
+          <p style="margin:0 0 1rem">请先登录后查看病历与用药记录</p>
+          <a href="login.html" class="btn btn-primary">去登录</a>
+          <a href="registration.html" class="btn btn-outline" style="margin-left:0.5rem">注册</a>
+        </div>
+      </div>
+
+      <div id="records-container" class="form-container" style="max-width:800px;margin:0 auto;padding:0 1.5rem 3rem" hidden>
+        <p id="records-message" class="form-message" hidden></p>
+        <div id="records-list"></div>
+
+        <section id="life-tips-section" class="card" style="margin-top:1.75rem;display:none;">
+          <h2 style="margin-top:0;margin-bottom:0.5rem;font-size:1.05rem;">健康小贴士（仅供参考）</h2>
+          <p style="margin:0 0 0.75rem;font-size:0.9rem;color:var(--slate-500);">
+            根据您最近的诊断，为您整理了一些与日常生活、饮食和运动相关的建议。这些内容<b>不能替代医生的诊疗和用药方案</b>，请务必严格遵医嘱按时复诊。
+          </p>
+          <div id="life-tips-content" style="font-size:0.9rem;line-height:1.6;"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner"><div class="footer-bottom"><p>&copy; 2026 安鑫诊所</p></div></div>
+    </footer>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/my-records.js"></script>
+</body>
+</html>

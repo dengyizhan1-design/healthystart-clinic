@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1f5039">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>患者登录 | 安鑫诊所</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo"><span class="logo-icon">&#x2695;</span> 安鑫诊所</a>
+        <button type="button" class="menu-btn" aria-label="菜单"><span class="menu-btn-bar"></span><span class="menu-btn-bar"></span><span class="menu-btn-bar"></span></button>
+        <nav class="nav">
+          <a href="/" class="nav-link">首页</a>
+          <a href="registration.html" class="nav-link">患者注册</a>
+          <a href="login.html" class="nav-link active">登录</a>
+          <a href="appointment.html" class="nav-link nav-cta-outline">预约挂号</a>
+          <a href="my-records.html" class="nav-link">我的病历</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <a href="/" class="page-back">&larr; 返回首页</a>
+        <h1>患者登录</h1>
+        <p>使用您注册时的手机号和密码登录</p>
+      </div>
+
+      <div class="form-container">
+        <div class="form-card">
+          <div id="login-section">
+            <form id="login-form" novalidate>
+              <div class="form-group"><label for="login-phone">手机号 <span class="required">*</span></label><input type="tel" id="login-phone" placeholder="11位手机号" required></div>
+              <div class="form-group"><label for="login-password">密码 <span class="required">*</span></label><input type="password" id="login-password" placeholder="至少6位" required></div>
+              <button type="submit" class="btn btn-primary" id="login-btn" style="width:100%"><span id="login-btn-text">登录</span><span id="login-btn-spinner" style="display:none;"> 加载中...</span></button>
+            </form>
+            <p id="login-message" class="form-message" hidden></p>
+            <p class="form-footer-note">还没有账号？<a href="registration.html">立即注册 &rarr;</a></p>
+          </div>
+
+          <div id="profile-section" hidden>
+            <div class="profile-summary">
+              <div class="profile-avatar" id="profile-avatar">?</div>
+              <h2 id="profile-name">--</h2>
+              <p id="profile-phone" class="profile-phone-text">--</p>
+            </div>
+            <a href="appointment.html" class="btn btn-primary" style="width:100%">预约挂号</a>
+            <a href="my-records.html" class="btn btn-outline" style="width:100%;margin-top:0.5rem">我的病历与用药记录</a>
+            <div id="my-appointments" style="margin-top:1.5rem"></div>
+            <button type="button" id="logout-btn" class="btn btn-outline" style="width:100%;margin-top:1rem">退出登录</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner"><div class="footer-bottom"><p>&copy; 2026 安鑫诊所</p></div></div>
+    </footer>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

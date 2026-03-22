@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1f5039">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>预约挂号 | 安鑫诊所</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="node_modules/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo"><span class="logo-icon">&#x2695;</span> 安鑫诊所</a>
+        <button type="button" class="menu-btn" aria-label="菜单"><span class="menu-btn-bar"></span><span class="menu-btn-bar"></span><span class="menu-btn-bar"></span></button>
+        <nav class="nav">
+          <a href="/" class="nav-link">首页</a>
+          <a href="registration.html" class="nav-link">患者注册</a>
+          <a href="login.html" class="nav-link">登录</a>
+          <a href="appointment.html" class="nav-link active nav-cta">预约挂号</a>
+          <a href="my-records.html" class="nav-link">我的病历</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <a href="/" class="page-back">&larr; 返回首页</a>
+        <h1>预约挂号</h1>
+        <p>选择您方便的日期和时间段，完成预约（需先登录并完成患者登记）</p>
+      </div>
+
+      <div class="form-container">
+        <div id="auth-notice" class="form-card" style="text-align:center;padding:2.5rem" hidden>
+          <div style="font-size:2.5rem;margin-bottom:0.75rem">&#128274;</div>
+          <h2 style="margin:0 0 0.5rem;font-size:1.25rem">请先登录</h2>
+          <p style="color:var(--slate-500);margin:0 0 1.5rem">您需要登录账号后才能进行预约挂号</p>
+          <a href="login.html" class="btn btn-primary">登录账号</a>
+          <a href="registration.html" class="btn btn-outline" style="margin-left:0.5rem">注册新账号</a>
+        </div>
+
+        <div id="reg-required-notice" class="form-card" style="text-align:center;padding:2.5rem" hidden>
+          <div style="font-size:2.5rem;margin-bottom:0.75rem">&#128221;</div>
+          <h2 style="margin:0 0 0.5rem;font-size:1.25rem">请先完成患者登记</h2>
+          <p style="color:var(--slate-500);margin:0 0 1.5rem">预约前需先填写患者登记表（含症状、病史等）</p>
+          <a href="registration.html" class="btn btn-primary">前往登记</a>
+          <a href="login.html" class="btn btn-outline" style="margin-left:0.5rem">登录其他账号</a>
+        </div>
+
+        <div id="booking-form-wrap" class="form-card" hidden>
+          <p style="margin:0 0 1rem;color:var(--slate-500)">当前账号：<strong id="logged-in-name">--</strong></p>
+          <a href="my-records.html" class="btn btn-outline" style="width:100%;margin-bottom:1rem">我的病历与用药记录</a>
+          <form id="booking-form" novalidate>
+            <div class="form-group"><label for="booking-date">预约日期 <span class="required">*</span></label><input type="text" id="booking-date" placeholder="选择日期" readonly required></div>
+            <div class="form-group">
+              <label>预约时间 <span class="required">*</span></label>
+              <input type="hidden" id="booking-time">
+              <p class="time-period-label">上午</p>
+              <div class="time-slots" id="morning-slots"></div>
+              <p class="time-period-label">下午</p>
+              <div class="time-slots" id="afternoon-slots"></div>
+            </div>
+            <div class="form-group"><label for="booking-reason">预约原因</label><input type="text" id="booking-reason" placeholder="如：复诊、取药（选填）"></div>
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%">确认预约</button>
+          </form>
+          <p id="booking-message" class="form-message" hidden></p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner"><div class="footer-bottom"><p>&copy; 2026 安鑫诊所</p></div></div>
+    </footer>
+  </div>
+
+  <script src="node_modules/flatpickr/dist/flatpickr.min.js"></script>
+  <script src="node_modules/flatpickr/dist/l10n/zh.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/appointment.js"></script>
+</body>
+</html>

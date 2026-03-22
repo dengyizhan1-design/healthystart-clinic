@@ -1,0 +1,272 @@
+/* 安鑫诊所 - 统一样式 */
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --primary-50: #f0f7f4;
+  --primary-100: #dcefe4;
+  --primary-200: #b8dfca;
+  --primary-400: #5bb88a;
+  --primary-500: #3a9d6e;
+  --primary-600: #2d7d57;
+  --primary-700: #256647;
+  --primary-800: #1f5039;
+  --primary-900: #1a3f2e;
+  --accent: #c0392b;
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+  --transition: 0.2s ease;
+}
+
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.7; color: var(--slate-800); background: var(--slate-50); }
+
+a { color: var(--primary-600); text-decoration: none; }
+a:hover { color: var(--primary-700); }
+
+/* 页头 */
+.header { background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); padding: 0 1.5rem; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--slate-200); }
+.header-inner { max-width: 1120px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo { font-size: 1.3rem; font-weight: 800; color: var(--primary-800); display: flex; align-items: center; gap: 0.3rem; }
+.logo-icon { color: var(--primary-600); }
+.menu-btn { display: none; flex-direction: column; justify-content: center; gap: 5px; padding: 8px; background: none; border: none; cursor: pointer; }
+.menu-btn-bar { display: block; width: 20px; height: 2px; background: var(--slate-700); border-radius: 1px; }
+.nav { display: flex; align-items: center; gap: 0.2rem; }
+.nav-link { color: var(--slate-600); font-weight: 500; font-size: 0.88rem; padding: 0.4rem 0.7rem; border-radius: var(--radius-sm); transition: all var(--transition); }
+.nav-link:hover { background: var(--primary-50); color: var(--primary-700); }
+.nav-link.active { color: var(--primary-700); background: var(--primary-50); }
+.nav-cta { background: var(--primary-600); color: #fff; padding: 0.45rem 1rem; border-radius: var(--radius-sm); }
+.nav-cta:hover { background: var(--primary-700); color: #fff; }
+.nav-cta-outline { border: 1.5px solid var(--primary-500); color: var(--primary-600); padding: 0.4rem 1rem; border-radius: var(--radius-sm); }
+.nav-cta-outline:hover { background: var(--primary-50); color: var(--primary-700); }
+
+/* 按钮 */
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.7rem 1.5rem; font-size: 0.9rem; font-weight: 600; border-radius: var(--radius-sm); border: 1.5px solid transparent; cursor: pointer; font-family: inherit; transition: all var(--transition); }
+.btn-lg { padding: 0.85rem 2rem; font-size: 0.95rem; }
+.btn-primary { background: var(--primary-600); color: #fff; border-color: var(--primary-600); }
+.btn-primary:hover { background: var(--primary-700); color: #fff; transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--primary-700); border-color: var(--primary-200); }
+.btn-outline:hover { background: var(--primary-50); border-color: var(--primary-400); }
+.btn-white { background: #fff; color: var(--primary-700); }
+.btn-outline-white { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+.btn-outline-white:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+/* Hero */
+.hero { position: relative; background: linear-gradient(155deg, var(--primary-50) 0%, #fff 40%, #fef9e7 100%); padding: 5rem 1.5rem 4.5rem; text-align: center; }
+.hero-content { max-width: 680px; margin: 0 auto; }
+.hero-badge { display: inline-block; background: var(--primary-100); color: var(--primary-700); font-size: 0.82rem; font-weight: 600; padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.25rem; }
+.hero-title { margin: 0 0 1rem; font-size: 3rem; font-weight: 800; color: var(--primary-900); line-height: 1.25; }
+.hero-subtitle { margin: 0 0 2rem; font-size: 1.1rem; color: var(--slate-500); }
+.hero-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+.hero-stats { display: flex; align-items: center; justify-content: center; gap: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--slate-200); }
+.hero-stat { display: flex; flex-direction: column; align-items: center; }
+.hero-stat-number { font-size: 1.6rem; font-weight: 800; color: var(--primary-700); }
+.hero-stat-label { font-size: 0.8rem; color: var(--slate-500); }
+.hero-stat-divider { width: 1px; height: 36px; background: var(--slate-200); }
+
+/* 页面布局 - 主内容 + 右侧健康小贴士 */
+.page-layout { display: flex; align-items: flex-start; max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; gap: 1.5rem; }
+.main-content { flex: 1; min-width: 0; }
+.health-tips-sidebar { width: 300px; flex-shrink: 0; padding: 1.5rem 0 2rem; position: sticky; top: 80px; }
+.health-tips-sidebar-inner { background: #fff; border: 1px solid var(--slate-200); border-radius: var(--radius); box-shadow: var(--shadow-md); padding: 1.25rem 1.5rem; }
+.health-tips-sidebar-title { margin: 0 0 1rem; font-size: 1rem; font-weight: 700; color: var(--primary-800); }
+.health-tip-card { padding: 1.25rem 0; border-bottom: 1px solid var(--slate-100); transition: opacity 0.4s, transform 0.4s; }
+.health-tip-card:last-child { border-bottom: none; padding-bottom: 0; }
+.health-tip-card.visible { opacity: 1; }
+.floating-tip-mascot { font-size: 3.5rem; text-align: center; margin-bottom: 0.75rem; animation: mascot-float 3s ease-in-out infinite; }
+.floating-tip-text { font-size: 1rem; color: var(--slate-700); line-height: 1.6; margin: 0 0 0.75rem; font-weight: 500; }
+.floating-tip-science { font-size: 0.85rem; color: var(--slate-500); line-height: 1.55; padding-top: 0.75rem; border-top: 1px dashed var(--slate-200); }
+.floating-tip-science strong { color: var(--primary-700); font-size: 0.8rem; display: block; margin-bottom: 0.35rem; }
+@keyframes mascot-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+/* 卡片 */
+.card { background: #fff; border: 1px solid var(--slate-200); border-radius: var(--radius); padding: 1.75rem 1.5rem; box-shadow: var(--shadow-md); transition: all var(--transition); }
+.card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.card-icon-wrap { width: 52px; height: 52px; background: var(--primary-50); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; }
+.info-cards { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+.info-cards-section { margin-top: -2.5rem; padding: 0 1.5rem 2rem; }
+
+/* 区块 */
+.section { padding: 4rem 1.5rem; }
+.section-inner { max-width: 1040px; margin: 0 auto; }
+.section-label { display: inline-block; color: var(--primary-600); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.section-title { margin: 0 0 0.5rem; font-size: 1.75rem; font-weight: 700; color: var(--slate-800); }
+.section-intro { margin: 0 0 2rem; color: var(--slate-500); }
+
+/* 服务网格 */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+.service-card { background: #fff; border: 1px solid var(--slate-200); border-radius: var(--radius); padding: 1.75rem; transition: all var(--transition); }
+.service-card:hover { border-color: var(--primary-200); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.service-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.service-card h3 { margin: 0 0 0.4rem; font-size: 1.05rem; font-weight: 700; }
+.service-card p { margin: 0; font-size: 0.9rem; color: var(--slate-500); }
+
+/* CTA */
+.cta-banner { background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-900) 100%); padding: 4rem 1.5rem; text-align: center; }
+.cta-banner h2 { color: #fff; font-size: 1.75rem; margin: 0 0 0.5rem; }
+.cta-banner p { color: rgba(255,255,255,0.8); margin: 0 0 1.75rem; }
+.cta-banner-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
+/* FAQ */
+.faq-list { max-width: 700px; margin-top: 0.75rem; }
+.faq-item { border: 1px solid var(--slate-200); border-radius: var(--radius); margin-bottom: 0.5rem; overflow: hidden; background: #fff; }
+.faq-question { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; font-size: 0.95rem; font-weight: 600; color: var(--slate-800); text-align: left; background: none; border: none; cursor: pointer; font-family: inherit; }
+.faq-question:hover { background: var(--primary-50); }
+.faq-icon { font-size: 0.55rem; color: var(--slate-400); transition: transform 0.3s; }
+.faq-item.is-open .faq-icon { transform: rotate(180deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
+.faq-item.is-open .faq-answer { max-height: 300px; }
+.faq-answer p { margin: 0; padding: 0 1.25rem 1.1rem; color: var(--slate-500); font-size: 0.9rem; }
+
+/* 页脚 */
+.footer { background: var(--slate-800); color: rgba(255,255,255,0.8); padding: 3rem 1.5rem 1.5rem; }
+.footer-inner { max-width: 1040px; margin: 0 auto; }
+.footer-brand { margin-bottom: 2rem; }
+.footer-logo { font-size: 1.2rem; font-weight: 700; color: #fff; }
+.footer-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.footer-col h4 { margin: 0 0 0.75rem; font-size: 0.85rem; font-weight: 700; color: #fff; }
+.footer-col a, .footer-col p { color: var(--slate-400); font-size: 0.88rem; }
+.footer-col a:hover { color: #fff; }
+.footer-bottom { padding-top: 1.5rem; text-align: center; }
+.footer-bottom p { margin: 0; font-size: 0.8rem; color: var(--slate-500); }
+
+/* 表单页面 */
+.page-wrapper { min-height: 100vh; display: flex; flex-direction: column; }
+.page-header { padding: 3rem 1.5rem 2rem; text-align: center; background: linear-gradient(155deg, var(--primary-50) 0%, #fff 60%, #fef9e7 100%); border-bottom: 1px solid var(--slate-200); }
+.page-header h1 { margin: 0 0 0.5rem; font-size: 2rem; font-weight: 800; color: var(--primary-900); }
+.page-header p { margin: 0; color: var(--slate-500); }
+.page-back { display: inline-block; color: var(--primary-600); font-size: 0.88rem; font-weight: 500; margin-bottom: 0.75rem; }
+.form-container { max-width: 640px; margin: -1.5rem auto 3rem; padding: 0 1.5rem; }
+.form-card { background: #fff; border: 1px solid var(--slate-200); border-radius: 16px; padding: 2rem; box-shadow: var(--shadow-lg); }
+.form-group { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1rem; }
+.form-group label { font-weight: 600; font-size: 0.85rem; color: var(--slate-700); }
+.form-group input, .form-group select, .form-group textarea { padding: 0.7rem 0.9rem; font-size: 0.95rem; font-family: inherit; border: 1.5px solid var(--slate-200); border-radius: var(--radius-sm); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-500); box-shadow: 0 0 0 3px rgba(58,157,110,0.12); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-section-card { border: 1px solid var(--slate-200); border-radius: var(--radius); padding: 1.5rem; background: var(--slate-50); margin-bottom: 1rem; }
+.form-section-card legend { font-weight: 700; font-size: 0.95rem; color: var(--primary-800); padding-bottom: 0.75rem; margin-bottom: 1rem; border-bottom: 2px solid var(--primary-200); }
+.required { color: var(--accent); }
+.form-hint { font-size: 0.82rem; color: var(--slate-400); margin-top: 0.2rem; }
+.form-message { padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-weight: 500; font-size: 0.9rem; margin-top: 0.5rem; }
+.form-message.success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+.form-message.error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.form-footer-note { text-align: center; margin-top: 1.25rem; font-size: 0.88rem; color: var(--slate-500); }
+.insurance-options { display: flex; gap: 1.5rem; padding: 0.5rem 0; }
+.radio-option { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 500; }
+.radio-option input { width: 1.1rem; height: 1.1rem; accent-color: var(--primary-600); }
+
+/* 时间槽 */
+.time-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 0.5rem; margin-top: 0.5rem; }
+.time-slot { padding: 0.5rem; text-align: center; font-size: 0.85rem; font-weight: 500; border: 1.5px solid var(--slate-200); border-radius: var(--radius-sm); cursor: pointer; background: #fff; color: var(--slate-700); }
+.time-slot:hover { border-color: var(--primary-400); background: var(--primary-50); }
+.time-slot.selected { background: var(--primary-600); color: #fff; border-color: var(--primary-600); }
+.time-period-label { font-size: 0.82rem; font-weight: 600; color: var(--slate-500); margin: 1rem 0 0.4rem; text-transform: uppercase; }
+.profile-card { background: var(--primary-50); border: 1.5px solid var(--primary-200); border-radius: var(--radius); padding: 1.5rem 2rem; margin-top: 1rem; }
+.profile-card h2 { color: var(--primary-800); font-size: 1.25rem; margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--primary-200); }
+.profile-card h3 { color: var(--primary-800); margin: 1.25rem 0 0.75rem; font-size: 1.1rem; }
+.record-card { background: #fff; border: 1px solid var(--slate-200); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-top: 0.75rem; }
+.record-date { font-size: 0.8rem; color: var(--slate-500); margin: 0 0 0.5rem; }
+.empty-notice { color: var(--slate-500); font-style: italic; }
+.profile-summary { text-align: center; padding-bottom: 1.5rem; border-bottom: 1px solid var(--slate-200); margin-bottom: 1.25rem; }
+.profile-avatar { width: 64px; height: 64px; background: var(--primary-100); color: var(--primary-700); font-size: 1.5rem; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; }
+.patient-list-item { padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 6px; }
+.patient-list-item:hover { background: var(--slate-100); }
+
+/* 预约时间选择按钮 */
+.slot-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  padding: 0.35rem 0.75rem;
+  margin: 0.15rem 0.35rem 0.15rem 0;
+  border-radius: 999px;
+  border: 1px solid var(--slate-200);
+  background: #fff;
+  color: var(--slate-700);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.slot-btn:hover {
+  border-color: var(--primary-300);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.12);
+}
+.slot-btn-selected {
+  background: var(--primary-600);
+  border-color: var(--primary-600);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(21, 128, 61, 0.22);
+}
+
+@media print {
+  .header,
+  .doctor-header,
+  .notification-bar,
+  #search-form,
+  #clear-board-btn,
+  #clear-patient-list-btn,
+  #clear-income-list-btn,
+  .income-grid,
+  .btn-logout {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .card {
+    box-shadow: none !important;
+  }
+
+  /* 打印模式：只打印病史与检查（不含新增记录表单） */
+  body[data-print-mode="history"] #add-record {
+    display: none !important;
+  }
+
+  /* 打印模式：只打印当前处方编辑区域（隐藏患者列表等其他内容） */
+  body[data-print-mode="rx"] .header,
+  body[data-print-mode="rx"] .notification-bar,
+  body[data-print-mode="rx"] #search-form,
+  body[data-print-mode="rx"] #patient-list,
+  body[data-print-mode="rx"] #patient-profile,
+  body[data-print-mode="rx"] #patient-appointments,
+  body[data-print-mode="rx"] #patient-records,
+  body[data-print-mode="rx"] #patient-images-section,
+  body[data-print-mode="rx"] #print-history-btn,
+  body[data-print-mode="rx"] #print-rx-btn {
+    display: none !important;
+  }
+  body[data-print-mode="rx"] #add-record {
+    display: block !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .page-layout { flex-direction: column; }
+  .health-tips-sidebar { width: 100%; position: static; padding: 1.5rem 1.5rem 0; }
+  .health-tips-sidebar-inner { max-width: 480px; margin: 0 auto; }
+}
+
+@media (max-width: 768px) {
+  .menu-btn { display: flex; min-width: 44px; min-height: 44px; }
+  .nav { position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; padding: 1rem; box-shadow: var(--shadow-lg); max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.3s, opacity 0.2s; }
+  .nav.is-open { max-height: 400px; opacity: 1; }
+  .nav-link { padding: 0.75rem 1rem; min-height: 44px; display: flex; align-items: center; }
+  .hero-title { font-size: 2rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .btn, .time-slot { min-height: 44px; touch-action: manipulation; }
+  input, select, textarea { font-size: 16px; }
+}
+
+@supports (padding: max(0px)) {
+  body { padding-left: max(0px, env(safe-area-inset-left)); padding-right: max(0px, env(safe-area-inset-right)); }
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1e40af">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>医生工作台 | 安鑫诊所</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .doctor-header { background: linear-gradient(135deg,#1e40af,#2563eb); color:#fff; padding:1rem 1.5rem; }
+    .doctor-header-inner { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
+    .btn-logout { background:rgba(255,255,255,0.15); color:#fff; border:1px solid rgba(255,255,255,0.3); padding:0.35rem 0.9rem; border-radius:6px; cursor:pointer; }
+    .income-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-bottom:1rem; }
+    .income-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:1.25rem; text-align:center; }
+    .income-card .label { font-size:0.8rem; color:#64748b; font-weight:600; }
+    .income-card .value { font-size:1.6rem; font-weight:800; color:#1e40af; }
+    .recent-item { display:flex; justify-content:space-between; padding:0.4rem 0; border-bottom:1px solid #f1f5f9; font-size:0.88rem; }
+    .rx-table { width:100%; border-collapse:collapse; }
+    .rx-table th { text-align:left; font-size:0.78rem; color:#64748b; padding:0.4rem; }
+    .rx-table td { padding:0.4rem; }
+    .rx-table input { width:100%; padding:0.4rem; }
+    .btn-sm { padding:0.35rem 0.75rem; font-size:0.8rem; }
+    .btn-success { background:#dcfce7; color:#16a34a; border:1px solid #bbf7d0; }
+    .btn-danger { background:#fee2e2; color:#dc2626; border:1px solid #fecaca; }
+    .notification-bar { background:#fffbeb; color:#d97706; padding:0.75rem 1rem; border-radius:8px; margin-bottom:1rem; border:1px solid #fde68a; }
+    .booking-alert { background:linear-gradient(135deg,#eff6ff,#dbeafe); border:1px solid #93c5fd; border-radius:10px; margin-bottom:1.5rem; overflow:hidden; }
+    .booking-alert h3 { margin:0; padding:0.75rem 1rem; font-size:1rem; color:#1e40af; background:rgba(255,255,255,0.6); }
+    .booking-item { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; padding:0.75rem 1rem; border-bottom:1px solid #e0e7ff; }
+    .booking-item:last-child { border-bottom:none; }
+    .booking-item-info { flex:1; min-width:0; }
+    .booking-item-info strong { color:#1e40af; }
+    .booking-detail-panel { margin:1rem; padding:1rem; background:#fff; border-radius:8px; border:1px solid #e2e8f0; font-size:0.9rem; }
+    .booking-detail-panel h4 { margin:0 0 0.5rem; color:#1e40af; font-size:0.9rem; }
+  </style>
+</head>
+<body>
+  <header class="doctor-header">
+    <div class="doctor-header-inner">
+      <span class="logo">&#x2695; 安鑫诊所 · 医生工作台</span>
+      <div id="header-actions" hidden>
+        <span style="font-size:0.82rem;opacity:0.8">已验证</span>
+        <button type="button" id="doctor-logout-btn" class="btn-logout">退出</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="max-width:1100px;margin:0 auto;padding:1.5rem">
+    <section id="login-gate">
+      <div class="form-card" style="max-width:400px;margin:2rem auto">
+        <h2 style="text-align:center;margin-bottom:0.5rem">医生登录</h2>
+        <p style="color:var(--slate-500);text-align:center;margin-bottom:1rem;font-size:0.9rem">请输入诊所密码进入工作台</p>
+        <form id="doctor-login-form">
+          <div class="form-group"><label for="doctor-username">账号</label><select id="doctor-username"><option value="dr_deng">邓克疾 (dr_deng)</option><option value="dr_li">李军 (dr_li)</option><option value="nurse li">李护士 (nurse li)</option></select></div>
+          <div class="form-group"><label for="doctor-password">密码</label><input type="password" id="doctor-password" placeholder="输入诊所密码" required></div>
+          <button type="submit" class="btn btn-primary" style="width:100%">进入工作台</button>
+        </form>
+        <p id="login-error" class="form-message error" hidden></p>
+      </div>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div id="notification-bar" class="notification-bar" hidden></div>
+
+      <div id="booking-alert-panel" class="booking-alert" hidden>
+        <h3>&#128276; 新预约待确认</h3>
+        <div style="padding:0 1rem 0.5rem;display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <input type="tel" id="booking-detail-phone" placeholder="输入手机号查患者详情" style="flex:1;min-width:140px;padding:0.4rem 0.6rem">
+          <button type="button" id="booking-detail-search-btn" class="btn btn-outline btn-sm">查询</button>
+        </div>
+        <div id="booking-detail-result" class="booking-detail-panel" style="display:none;margin:0 1rem 1rem"></div>
+        <div id="pending-booking-list"></div>
+        <p id="pending-booking-empty" class="empty-notice" style="padding:1rem;margin:0;display:none">暂无待确认预约。患者预约后会在此显示，可输入手机号提前查看患者登记信息。</p>
+      </div>
+
+      <h2 style="margin-bottom:1rem">&#128200; 收入概览</h2>
+      <div class="income-grid">
+        <div class="income-card"><div class="label">今日收入</div><div class="value" id="income-today">¥0</div><div class="label" id="income-today-count">0 笔</div></div>
+        <div class="income-card" style="position:relative">
+          <div class="label">本月收入</div>
+          <div class="value" id="income-month">¥0</div>
+          <div class="label" id="income-month-count">0 笔</div>
+          <button type="button" id="reset-monthly-income-btn" class="btn btn-sm" style="margin-top:0.5rem;width:100%;background:#eff6ff;color:#1e40af;border:1px solid #93c5fd">结账 / 重置本月</button>
+        </div>
+        <div class="income-card"><div class="label">累计总收入</div><div class="value" id="income-total">¥0</div><div class="label" id="income-total-count">0 笔</div></div>
+      </div>
+      <div class="card" style="margin-bottom:1.5rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;flex-wrap:wrap;gap:0.5rem">
+          <h3 style="margin:0">近期收费记录</h3>
+          <button type="button" id="clear-income-list-btn" class="btn btn-outline btn-sm" title="清空列表，隐藏记录">清空</button>
+        </div>
+        <div id="recent-income-list" style="max-height:200px;overflow-y:auto"><p class="empty-notice">暂无</p></div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid #e2e8f0;margin:1.5rem 0">
+
+      <h2 style="margin-bottom:1rem">&#128269; 患者查询</h2>
+      <div class="card" style="margin-bottom:1rem">
+        <form id="search-form" style="display:flex;gap:0.5rem;margin-bottom:0.75rem">
+          <input type="tel" id="search-phone" placeholder="输入11位手机号" style="flex:1;padding:0.6rem" required>
+          <button type="submit" class="btn btn-primary">查询</button>
+          <button type="button" id="clear-board-btn" class="btn btn-outline" title="清空列表与当前显示，隐藏手机号">清空</button>
+        </form>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem">
+          <span style="font-size:0.85rem;color:var(--slate-500)">患者列表</span>
+          <button type="button" id="clear-patient-list-btn" class="btn btn-outline btn-sm" title="清空列表，隐藏手机号">清空</button>
+        </div>
+        <div id="patient-list" style="max-height:180px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:8px"></div>
+      </div>
+      <p id="search-error" class="form-message error" hidden></p>
+
+      <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap">
+        <button type="button" id="print-history-btn" class="btn btn-outline btn-sm" hidden>打印病史与检查摘要</button>
+        <button type="button" id="print-rx-btn" class="btn btn-outline btn-sm" hidden>打印本次处方</button>
+      </div>
+      <div id="patient-profile" hidden></div>
+      <div id="patient-appointments" hidden></div>
+      <div id="patient-records" hidden></div>
+
+      <div id="patient-images-section" hidden>
+        <div class="card">
+          <h3 style="margin-bottom:0.75rem">&#128247; 影像与检查资料</h3>
+          <form id="image-upload-form" style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:flex-start;margin-bottom:0.75rem">
+            <input type="file" id="image-file" accept="image/*" capture="environment" style="flex:1;min-width:180px">
+            <input type="text" id="image-category" placeholder="类别（如 CT / MR / 化验单）" style="flex:1;min-width:160px">
+            <input type="text" id="image-note" placeholder="简要备注（可选）" style="flex:2;min-width:200px">
+            <button type="submit" class="btn btn-primary btn-sm">上传影像</button>
+          </form>
+          <div id="patient-images-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.75rem;"></div>
+          <p id="image-upload-error" class="form-message error" hidden></p>
+        </div>
+      </div>
+
+      <div id="add-record" hidden>
+        <div class="card">
+          <h3 style="margin-bottom:1rem">&#128221; 添加就诊记录</h3>
+          <form id="add-record-form">
+            <div class="form-row">
+              <div class="form-group"><label for="rec-symptoms">症状 *</label><input type="text" id="rec-symptoms" required></div>
+              <div class="form-group"><label for="rec-diagnosis">诊断 *</label><input type="text" id="rec-diagnosis" required></div>
+            </div>
+            <div class="form-group"><label for="rec-treatment">治疗方案</label><input type="text" id="rec-treatment"></div>
+            <div class="form-group"><label for="rec-doctor">医生姓名 *</label><input type="text" id="rec-doctor" required></div>
+            <div class="form-group">
+              <label>处方用药</label>
+              <button type="button" id="add-rx-btn" class="btn btn-outline btn-sm">+ 添加药品</button>
+              <table class="rx-table"><thead><tr><th>药品名称</th><th>用法用量</th><th>数量</th><th>单价</th><th>小计</th><th></th></tr></thead><tbody id="rx-tbody"></tbody></table>
+              <div style="margin-top:0.5rem"><strong>药品费合计：</strong><span id="rx-drug-total">¥0</span></div>
+            </div>
+            <div class="form-group"><label for="rec-consult-fee">诊疗费</label><input type="number" id="rec-consult-fee" value="0" min="0" step="0.01"></div>
+            <div style="margin:0.5rem 0"><strong>总费用：</strong><span id="rec-total-price">¥0</span></div>
+            <button type="submit" class="btn btn-primary">保存就诊记录</button>
+          </form>
+          <p id="record-message" class="form-message" hidden></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script src="js/doctor.js"></script>
+</body>
+</html>
