@@ -60,3 +60,4 @@
 
 1. `npm install && npm start`
 2. 浏览器访问 http://localhost:3000
+# healthystart-clinic
