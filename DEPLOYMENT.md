@@ -21,12 +21,19 @@
 # 1. 安装依赖
 npm install
 
-# 2. 确保 MySQL 已创建数据库，并执行项目所需的建表 SQL（patients, users, appointments 等）
+# 2. 创建数据库和表（二选一）
+#    方式 A - 全新安装：
+mysql -u root -p < database/schema.sql
+mysql -u root -p clinic_management < database/seed-doctor.sql
 
-# 3. 创建收入结账表
+#    方式 B - 已有数据库，补全表：
+mysql -u root -p clinic_management < database/migrations.sql
+mysql -u root -p clinic_management < database/seed-doctor.sql
+
+# 3. 创建收入结账表（若 schema/migrations 已包含可跳过）
 npm run db:income-settlements
 
-# 4. 初始化医生密码
+# 4. 若需重置医生密码为 anxin2026
 npm run init-doctor
 ```
 
